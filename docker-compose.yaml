@@ -1,0 +1,20 @@
+services:
+  scripts:
+    environment:
+      - PYTHONUNBUFFERED=1
+    build: ./scripts
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./database:/db
+
+  db:
+    image: nouchka/sqlite3:latest
+    stdin_open: true
+    tty: true
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./database:/db
+    depends_on:
+      - scripts
